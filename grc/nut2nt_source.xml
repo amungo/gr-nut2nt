@@ -1,0 +1,758 @@
+<block>
+  <name>Nut2nt Source</name>
+  <key>nut2nt</key>
+  <category>AMUNGO</category>
+  <import>import nut2nt</import>
+  <make>nut2nt.nut2nt_source($num_outputs, $firmware_file, $config_file, $ecp5_alg, $ecp5_data, $output_type.size, $rx_block_size, $rx_block_num, 0)
+self.$(id).init_nut2nt_source()
+if $config_file == '':
+    self.$(id).set_pll_freq(0, $pll_freq_a)
+    self.$(id).set_pll_freq(1, $pll_freq_b)
+    self.$(id).set_lo_src($lo_source)
+    self.$(id).set_clk_src($clk_source)
+    self.$(id).set_clk_divider($clk_divider)
+    self.$(id).set_chan_enable(0, $ch_enabled_0)
+    self.$(id).set_gnss(0, $ch_gnss_0)
+    self.$(id).set_if_pass_band(0, $ch_if_band_0)
+    self.$(id).set_chan_enable(1, $ch_enabled_1)
+    self.$(id).set_gnss(1, $ch_gnss_1)
+    self.$(id).set_if_pass_band(1, $ch_if_band_1)
+    self.$(id).set_chan_enable(2, $ch_enabled_2)
+    self.$(id).set_gnss(2, $ch_gnss_2)
+    self.$(id).set_if_pass_band(2, $ch_if_band_2)
+    self.$(id).set_chan_enable(3, $ch_enabled_3)
+    self.$(id).set_gnss(3, $ch_gnss_3)
+    self.$(id).set_if_pass_band(3, $ch_if_band_3)
+  </make>
+  <!-- Setup channel 1 -->
+  <!-- Setup channel 2 -->
+  <!-- Setup channel 3 -->
+  <!-- Setup channel 4 -->
+  <!--callback>set_freq($freq_0, 0)</callback-->
+  <callback>set_pll_freq(0, $pll_freq_a)</callback>
+  <callback>set_pll_freq(1, $pll_freq_b)</callback>
+
+  <!-- ***************** Output Type ********************  -->
+  <param>
+    <name>Output Type </name>
+    <key>output_type</key>
+    <value>float</value>
+    <type>enum</type>
+    <option>
+      <name>Float</name>
+      <key>float</key>
+      <opt>size:gr.sizeof_float</opt>
+    </option>
+    <option>
+      <name>Short</name>
+      <key>short</key>
+      <opt>size:gr.sizeof_short</opt>
+    </option>
+    <option>
+      <name>Byte</name>
+      <key>byte</key>
+      <opt>size:gr.sizeof_char</opt>
+    </option>
+    <option>
+      <name>Raw</name>
+      <key>raw</key>
+      <opt>size:0</opt>
+    </option>
+  </param>
+  <param>
+    <name>Channels Count</name>
+    <key>num_outputs</key>
+    <value>1</value>
+    <type>int</type>
+  </param>
+
+  <!-- ******* LO SOURCE "0" PLL "A" for all channels,  "1" PLL "A" for hannels 1&2 PLL "B" for hannels 3&4  ******* -->
+  <param>
+    <name>LO Source</name>
+    <key>lo_source</key>
+    <value>0</value>
+    <type>int</type>
+    <option>
+      <name>PLL A(chan: 1,2,3,4) </name>
+      <key>0</key>
+    </option>
+    <option>
+      <name>PLL A(chan: 1,2); PLL B(chan: 3,4) </name>
+      <key>1</key>
+    </option>
+  </param>
+
+  <!-- ********************** CLK SOURCE "0" from PLL "A",  "1" from PLL "B"  ******************* -->
+  <param>
+    <name>CLK Source</name>
+    <key>clk_source</key>
+    <value>0</value>
+    <type>int</type>
+    <hide>part</hide>
+    <option>
+      <name>PLL A </name>
+      <key>0</key>
+    </option>
+    <option>
+      <name>PLL B </name>
+      <key>1</key>
+    </option>
+  </param>
+
+  <!-- ********************** CLK Divider (8,9...31) ******************** -->
+  <param>
+    <name>CLK divider ratio</name>
+    <key>clk_divider</key>
+    <value>15</value>
+    <type>int</type>
+    <option>
+      <name>:8</name>
+      <key>8</key>
+    </option>
+    <option>
+      <name>:9</name>
+      <key>9</key>
+    </option>
+    <option>
+      <name>:10</name>
+      <key>10</key>
+    </option>
+    <option>
+      <name>:11</name>
+      <key>11</key>
+    </option>
+    <option>
+      <name>:12</name>
+      <key>12</key>
+    </option>
+    <option>
+      <name>:13</name>
+      <key>13</key>
+    </option>
+    <option>
+      <name>:14</name>
+      <key>14</key>
+    </option>
+    <option>
+      <name>:15</name>
+      <key>15</key>
+    </option>
+    <option>
+      <name>:16</name>
+      <key>16</key>
+    </option>
+    <option>
+      <name>:17</name>
+      <key>17</key>
+    </option>
+    <option>
+      <name>:18</name>
+      <key>18</key>
+    </option>
+    <option>
+      <name>:19</name>
+      <key>19</key>
+    </option>
+    <option>
+      <name>:20</name>
+      <key>20</key>
+    </option>
+    <option>
+      <name>:21</name>
+      <key>21</key>
+    </option>
+    <option>
+      <name>:22</name>
+      <key>22</key>
+    </option>
+    <option>
+      <name>:23</name>
+      <key>23</key>
+    </option>
+    <option>
+      <name>:24</name>
+      <key>24</key>
+    </option>
+    <option>
+      <name>:25</name>
+      <key>25</key>
+    </option>
+    <option>
+      <name>:26</name>
+      <key>26</key>
+    </option>
+    <option>
+      <name>:27</name>
+      <key>27</key>
+    </option>
+    <option>
+      <name>:28</name>
+      <key>28</key>
+    </option>
+    <option>
+      <name>:29</name>
+      <key>29</key>
+    </option>
+    <option>
+      <name>:30</name>
+      <key>30</key>
+    </option>
+    <option>
+      <name>:31</name>
+      <key>31</key>
+    </option>
+  </param>
+
+  <!-- ****************  Heterodin A Freq ************ -->
+  <param>
+    <name>Heterodyne A Freq(MHz)</name>
+    <key>pll_freq_a</key>
+    <value>1590000000</value>
+    <type>int</type>
+  </param>
+
+  <!-- *************** Heterodin B Freq *************** -->
+  <param>
+    <name>Heterodyne B Freq(MHz)</name>
+    <key>pll_freq_b</key>
+    <value>1590000000</value>
+    <type>int</type>
+  </param>
+
+  <!-- *************** 1 CHANNEL ****************  -->
+  <param>
+    <name>Ch1: GNSS</name>
+    <key>ch_gnss_0</key>
+    <value>0</value>
+    <type>int</type>
+    <hide>part</hide>
+    <option>
+      <name>USB</name>
+      <key>0</key>
+    </option>
+    <option>
+      <name>LSB</name>
+      <key>1</key>
+    </option>
+  </param>
+  <param>
+    <name>Ch1: IF pass band</name>
+    <key>ch_if_band_0</key>
+    <value>22</value>
+    <type>int</type>
+    <hide>part</hide>
+    <option>
+      <name>15.12 MHz</name>
+      <key>22</key> <!--0010110-->
+    </option>
+    <option>
+      <name>15.69 MHz</name>
+      <key>24</key> <!--0011000-->
+    </option>
+    <option>
+      <name>16.59 MHz</name>
+      <key>27</key> <!--0011011-->
+    </option>
+    <option>
+      <name>17.60 MHz</name>
+      <key>30</key> <!--0011110-->
+    </option>
+    <option>
+      <name>18.33 MHz</name>
+      <key>33</key> <!--0100001-->
+    </option>
+    <option>
+      <name>19.36 MHz</name>
+      <key>36</key>  <!--0100100-->
+    </option>
+    <option>
+      <name>20.31 MHz</name>
+      <key>39</key> <!--0100111-->
+    </option>
+    <option>
+      <name>21.13 MHz</name>
+      <key>42</key> <!--0101010-->
+    </option>
+    <option>
+      <name>21.92 MHz</name>
+      <key>45</key> <!--0101101-->
+    </option>
+    <option>
+      <name>22.89 MHz</name>
+      <key>48</key> <!--0110000-->
+    </option>
+    <option>
+      <name>23.82 MHz</name>
+      <key>51</key> <!--0110011-->
+    </option>
+    <option>
+      <name>24.94 MHz</name>
+      <key>54</key> <!--0110110-->
+    </option>
+    <option>
+      <name>25.45 MHz</name>
+      <key>57</key> <!--0111001-->
+    </option>
+    <option>
+      <name>26.50 MHz</name>
+      <key>60</key> <!--0111100-->
+    </option>
+    <option>
+      <name>27.38 MHz</name>
+      <key>63</key> <!--0111111-->
+    </option>
+    <option>
+      <name>28.31 MHz</name>
+      <key>66</key> <!--1000010-->
+    </option>
+    <option>
+      <name>29.02 MHz</name>
+      <key>69</key> <!--1000101-->
+    </option>
+    <option>
+      <name>29.64 MHz</name>
+      <key>72</key> <!--1001000-->
+    </option>
+    <option>
+      <name>30.47 MHz</name>
+      <key>75</key> <!--1001101-->
+    </option>
+    <option>
+      <name>31.19 MHz</name>
+      <key>77</key>
+    </option>
+  </param>
+  <param>
+    <name>Ch1: Enable/Disable</name>
+    <key>ch_enabled_0</key>
+    <value>True</value>
+    <type>bool</type>
+    <hide>part</hide>
+    <option>
+      <name>Enabled</name>
+      <key>True</key>
+    </option>
+    <option>
+      <name>Disabled</name>
+      <key>False</key>
+    </option>
+  </param>
+
+  <!-- ************************  2 CHANNEL ***********************  -->
+  <param>
+    <name>Ch2: GNSS</name>
+    <key>ch_gnss_1</key>
+    <value>0</value>
+    <type>int</type>
+    <hide>part</hide>
+    <option>
+      <name>USB</name>
+      <key>0</key>
+    </option>
+    <option>
+      <name>LSB</name>
+      <key>1</key>
+    </option>
+  </param>
+  <param>
+    <name>Ch2: IF pass band</name>
+    <key>ch_if_band_1</key>
+    <value>22</value>
+    <type>int</type>
+    <hide>part</hide>
+    <option>
+      <name>15.12 MHz</name>
+      <key>22</key> <!--0010110-->
+    </option>
+    <option>
+      <name>15.69 MHz</name>
+      <key>24</key> <!--0011000-->
+    </option>
+    <option>
+      <name>16.59 MHz</name>
+      <key>27</key> <!--0011011-->
+    </option>
+    <option>
+      <name>17.60 MHz</name>
+      <key>30</key> <!--0011110-->
+    </option>
+    <option>
+      <name>18.33 MHz</name>
+      <key>33</key> <!--0100001-->
+    </option>
+    <option>
+      <name>19.36 MHz</name>
+      <key>36</key>  <!--0100100-->
+    </option>
+    <option>
+      <name>20.31 MHz</name>
+      <key>39</key> <!--0100111-->
+    </option>
+    <option>
+      <name>21.13 MHz</name>
+      <key>42</key> <!--0101010-->
+    </option>
+    <option>
+      <name>21.92 MHz</name>
+      <key>45</key> <!--0101101-->
+    </option>
+    <option>
+      <name>22.89 MHz</name>
+      <key>48</key> <!--0110000-->
+    </option>
+    <option>
+      <name>23.82 MHz</name>
+      <key>51</key> <!--0110011-->
+    </option>
+    <option>
+      <name>24.94 MHz</name>
+      <key>54</key> <!--0110110-->
+    </option>
+    <option>
+      <name>25.45 MHz</name>
+      <key>57</key> <!--0111001-->
+    </option>
+    <option>
+      <name>26.50 MHz</name>
+      <key>60</key> <!--0111100-->
+    </option>
+    <option>
+      <name>27.38 MHz</name>
+      <key>63</key> <!--0111111-->
+    </option>
+    <option>
+      <name>28.31 MHz</name>
+      <key>66</key> <!--1000010-->
+    </option>
+    <option>
+      <name>29.02 MHz</name>
+      <key>69</key> <!--1000101-->
+    </option>
+    <option>
+      <name>29.64 MHz</name>
+      <key>72</key> <!--1001000-->
+    </option>
+    <option>
+      <name>30.47 MHz</name>
+      <key>75</key> <!--1001011-->
+    </option>
+    <option>
+      <name>31.19 MHz</name> <!--1001101-->
+      <key>77</key>
+    </option>
+  </param>
+  <param>
+    <name>Ch2: Enable/Disable</name>
+    <key>ch_enabled_1</key>
+    <value>True</value>
+    <type>bool</type>
+    <hide>part</hide>
+    <option>
+      <name>Enabled</name>
+      <key>True</key>
+    </option>
+    <option>
+      <name>Disabled</name>
+      <key>False</key>
+    </option>
+  </param>
+  <!-- ************************  3 CHANNEL ***********************  -->
+  <param>
+    <name>Ch3: GNSS</name>
+    <key>ch_gnss_2</key>
+    <value>0</value>
+    <type>int</type>
+    <hide>part</hide>
+    <option>
+      <name>USB</name>
+      <key>0</key>
+    </option>
+    <option>
+      <name>LSB</name>
+      <key>1</key>
+    </option>
+  </param>
+  <param>
+    <name>Ch3: IF pass band</name>
+    <key>ch_if_band_2</key>
+    <value>22</value>
+    <type>int</type>
+    <hide>part</hide>
+    <option>
+      <name>15.12 MHz</name>
+      <key>22</key> <!--0010110-->
+    </option>
+    <option>
+      <name>15.69 MHz</name>
+      <key>24</key> <!--0011000-->
+    </option>
+    <option>
+      <name>16.59 MHz</name>
+      <key>27</key> <!--0011011-->
+    </option>
+    <option>
+      <name>17.60 MHz</name>
+      <key>30</key> <!--0011110-->
+    </option>
+    <option>
+      <name>18.33 MHz</name>
+      <key>33</key> <!--0100001-->
+    </option>
+    <option>
+      <name>19.36 MHz</name>
+      <key>36</key>  <!--0100100-->
+    </option>
+    <option>
+      <name>20.31 MHz</name>
+      <key>39</key> <!--0100111-->
+    </option>
+    <option>
+      <name>21.13 MHz</name>
+      <key>42</key> <!--0101010-->
+    </option>
+    <option>
+      <name>21.92 MHz</name>
+      <key>45</key> <!--0101101-->
+    </option>
+    <option>
+      <name>22.89 MHz</name>
+      <key>48</key> <!--0110000-->
+    </option>
+    <option>
+      <name>23.82 MHz</name>
+      <key>51</key> <!--0110011-->
+    </option>
+    <option>
+      <name>24.94 MHz</name>
+      <key>54</key> <!--0110110-->
+    </option>
+    <option>
+      <name>25.45 MHz</name>
+      <key>57</key> <!--0111001-->
+    </option>
+    <option>
+      <name>26.50 MHz</name>
+      <key>60</key> <!--0111100-->
+    </option>
+    <option>
+      <name>27.38 MHz</name>
+      <key>63</key> <!--0111111-->
+    </option>
+    <option>
+      <name>28.31 MHz</name>
+      <key>66</key> <!--1000010-->
+    </option>
+    <option>
+      <name>29.02 MHz</name>
+      <key>69</key> <!--1000101-->
+    </option>
+    <option>
+      <name>29.64 MHz</name>
+      <key>72</key> <!--1001000-->
+    </option>
+    <option>
+      <name>30.47 MHz</name>
+      <key>75</key> <!--1001101-->
+    </option>
+    <option>
+      <name>31.19 MHz</name>
+      <key>77</key>
+    </option>
+  </param>
+  <param>
+    <name>Ch3: Enable/Disable</name>
+    <key>ch_enabled_2</key>
+    <value>True</value>
+    <type>bool</type>
+    <hide>part</hide>
+    <option>
+      <name>Enabled</name>
+      <key>True</key>
+    </option>
+    <option>
+      <name>Disabled</name>
+      <key>False</key>
+    </option>
+  </param>
+  <!-- ************************  4 CHANNEL ***********************  -->
+  <param>
+    <name>Ch4: GNSS</name>
+    <key>ch_gnss_3</key>
+    <value>0</value>
+    <type>int</type>
+    <hide>part</hide>
+    <option>
+      <name>USB</name>
+      <key>0</key>
+    </option>
+    <option>
+      <name>LSB</name>
+      <key>1</key>
+    </option>
+  </param>
+  <param>
+    <name>Ch4: IF pass band</name>
+    <key>ch_if_band_3</key>
+    <value>22</value>
+    <type>int</type>
+    <hide>part</hide>
+    <option>
+      <name>15.12 MHz</name>
+      <key>22</key> <!--0010110-->
+    </option>
+    <option>
+      <name>15.69 MHz</name>
+      <key>24</key> <!--0011000-->
+    </option>
+    <option>
+      <name>16.59 MHz</name>
+      <key>27</key> <!--0011011-->
+    </option>
+    <option>
+      <name>17.60 MHz</name>
+      <key>30</key> <!--0011110-->
+    </option>
+    <option>
+      <name>18.33 MHz</name>
+      <key>33</key> <!--0100001-->
+    </option>
+    <option>
+      <name>19.36 MHz</name>
+      <key>36</key>  <!--0100100-->
+    </option>
+    <option>
+      <name>20.31 MHz</name>
+      <key>39</key> <!--0100111-->
+    </option>
+    <option>
+      <name>21.13 MHz</name>
+      <key>42</key> <!--0101010-->
+    </option>
+    <option>
+      <name>21.92 MHz</name>
+      <key>45</key> <!--0101101-->
+    </option>
+    <option>
+      <name>22.89 MHz</name>
+      <key>48</key> <!--0110000-->
+    </option>
+    <option>
+      <name>23.82 MHz</name>
+      <key>51</key> <!--0110011-->
+    </option>
+    <option>
+      <name>24.94 MHz</name>
+      <key>54</key> <!--0110110-->
+    </option>
+    <option>
+      <name>25.45 MHz</name>
+      <key>57</key> <!--0111001-->
+    </option>
+    <option>
+      <name>26.50 MHz</name>
+      <key>60</key> <!--0111100-->
+    </option>
+    <option>
+      <name>27.38 MHz</name>
+      <key>63</key> <!--0111111-->
+    </option>
+    <option>
+      <name>28.31 MHz</name>
+      <key>66</key> <!--1000010-->
+    </option>
+    <option>
+      <name>29.02 MHz</name>
+      <key>69</key> <!--1000101-->
+    </option>
+    <option>
+      <name>29.64 MHz</name>
+      <key>72</key> <!--1001000-->
+    </option>
+    <option>
+      <name>30.47 MHz</name>
+      <key>75</key> <!--1001101-->
+    </option>
+    <option>
+      <name>31.19 MHz</name>
+      <key>77</key>
+    </option>
+  </param>
+  <param>
+    <name>Ch4: Enable/Disable</name>
+    <key>ch_enabled_3</key>
+    <value>True</value>
+    <type>bool</type>
+    <hide>part</hide>
+    <option>
+      <name>Enabled</name>
+      <key>True</key>
+    </option>
+    <option>
+      <name>Disabled</name>
+      <key>False</key>
+    </option>
+  </param>
+
+  <param>
+    <name>Rx block size (bytes)</name>
+    <key>rx_block_size</key>
+    <value>204800</value>
+    <type>int</type>
+    <hide>part</hide>
+    <tab>USB options</tab>
+  </param>
+  <param>
+    <name>Rx queue size</name>
+    <key>rx_block_num</key>
+    <value>16</value>
+    <type>int</type>
+    <hide>part</hide>
+    <tab>USB options</tab>
+  </param>
+  <param>
+    <name>Firmware file</name>
+    <key>firmware_file</key>
+    <value>nut2nt.img</value>
+    <type>string</type>
+    <hide>part</hide>
+    <tab>USB options</tab>
+  </param>
+  <param>
+    <name>Config file</name>
+    <key>config_file</key>
+    <value>manual</value>
+    <type>string</type>
+    <hide>part</hide>
+    <tab>USB options</tab>
+  </param>
+  <param>
+    <name>Lattice algorithm file</name>
+    <key>ecp5_alg</key>
+    <value>nut2algo.sea.</value>
+    <type>string</type>
+    <hide>part</hide>
+    <tab>USB options</tab>
+  </param>
+  <param>
+    <name>Lattice data file</name>
+    <key>ecp5_data</key>
+    <value>nut2data.sed</value>
+    <type>string</type>
+    <hide>part</hide>
+    <tab>USB options</tab>
+  </param>
+  <param>
+    <name>Bus Connections</name>
+    <key>bus_conns</key>
+    <value>[[0,],]</value>
+    <type>raw</type>
+    <hide>part</hide>
+  </param>
+  <check>0 &lt; $num_outputs &lt;= 4</check>
+  <source>
+    <name>out</name>
+    <type>$output_type</type>
+    <nports>$num_outputs</nports>
+  </source>
+  <bus_structure_source>$bus_conns</bus_structure_source>
+</block>
